@@ -1,0 +1,26 @@
+package org.usfirst.frc4980.SteamworksAliceRobot2017.subsystems;
+
+import org.usfirst.frc4980.SteamworksAliceRobot2017.RobotMap;
+
+import com.ctre.CANTalon;
+
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+/**
+ *
+ */
+public class shooter extends Subsystem {
+	private final CANTalon shooterMotor = RobotMap.shootershooterMotor
+			;
+    
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    
+}
+
