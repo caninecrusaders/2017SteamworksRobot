@@ -26,7 +26,7 @@ public class AutoGearLeft extends CommandGroup {
         // arm.
     	//addParallel(new AutoDriveForward(2450, 0.5));
     	addSequential(new AutoDriveForward(2450, 0.5));
-    	addSequential(new TurnClockwise(500, 0.5)); //turn clockwise
+    	addSequential(new TurnClockwise(400, 0.5)); //turn clockwise
     	addSequential(new AutoDriveForward(1000, 0.5));
     	addParallel(new GearLeanOut());
     }

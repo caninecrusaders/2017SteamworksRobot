@@ -19,18 +19,30 @@ public class climberClimb extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//RobotMap.climberRatchetServo.setAngle(160);
+    	RobotMap.climberRatchetServo.setAngle(160);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Joystick j = Robot.oi.joystick1;
-    	if(j.getRawButton(11)){
-    		RobotMap.collectorCollectorMotor.set(1.0);
-    	} else {
-    		RobotMap.collectorCollectorMotor.set(0.0);
+    	Joystick j = Robot.oi.joystick;
+    	Joystick x = Robot.oi.xbox;
+    	RobotMap.climberRatchetServo.setAngle(160);
+    	double xboxSpeed = x.getRawAxis(2);
+    	if(xboxSpeed<0.1){
+    		xboxSpeed = 0.0;
     	}
+    	if(xboxSpeed>0.0){
+    		RobotMap.collectorCollectorMotor.set(xboxSpeed);
+    	}else{
+    		if(j.getRawButton(7)){
+        		RobotMap.collectorCollectorMotor.set(1.0);
+        	} else {
+        		RobotMap.collectorCollectorMotor.set(0.0);
+        	}
+
+    	}
+    	
     	
     }
 
@@ -42,7 +54,7 @@ public class climberClimb extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	//RobotMap.climberRatchetServo.setAngle(210);
+    	RobotMap.climberRatchetServo.setAngle(210);
     }
 
     // Called when another command which requires one or more of the same

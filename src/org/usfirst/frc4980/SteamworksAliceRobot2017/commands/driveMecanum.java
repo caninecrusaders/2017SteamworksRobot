@@ -139,14 +139,23 @@ public class driveMecanum extends Command {
     		rearLeft/=max;
     		rearRight/=max;
     	}
-    	
-    	RobotMap.drivebasebackLeftMotor.set(rearLeft);
-    	RobotMap.drivebasebackRightMotor.set(rearRight);
-    	//RobotMap.drivebasebackLeftMotor2.set(rearLeft);
-    	//RobotMap.drivebasebackRightMotor2.set(rearRight);
-    	RobotMap.drivebasefrontLeftMotor.set(frontLeft);
-    	RobotMap.drivebasefrontRightMotor.set(frontRight);
+    	if(Robot.drivebase.invert){
+    		RobotMap.drivebasebackLeftMotor.set(-rearLeft);
+        	RobotMap.drivebasebackRightMotor.set(-rearRight);
+        	//RobotMap.drivebasebackLeftMotor2.set(rearLeft);
+        	//RobotMap.drivebasebackRightMotor2.set(rearRight);
+        	RobotMap.drivebasefrontLeftMotor.set(-frontLeft);
+        	RobotMap.drivebasefrontRightMotor.set(-frontRight);
+    	} else {
+    		RobotMap.drivebasebackLeftMotor.set(rearLeft);
+        	RobotMap.drivebasebackRightMotor.set(rearRight);
+        	//RobotMap.drivebasebackLeftMotor2.set(rearLeft);
+        	//RobotMap.drivebasebackRightMotor2.set(rearRight);
+        	RobotMap.drivebasefrontLeftMotor.set(frontLeft);
+        	RobotMap.drivebasefrontRightMotor.set(frontRight);
     	}
+    	
+    }
 //    	double rcw = xBox.getRawAxis(RIGHT_X_AXIS);
 //    	double forwrd = xBox.getRawAxis(LEFT_Y_AXIS) * -1; /* Invert stick Y axis */
 //    	double strafe = xBox.getRawAxis(LEFT_X_AXIS);

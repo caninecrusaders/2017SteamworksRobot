@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class shooter extends Subsystem {
 	public boolean isShooting = false;
-	public double startingRPM = 2300;
+	public double startingRPM = 500;//2300
 	public double speedRPM = startingRPM;
 	private double speedStep = 20.0;
+	public double speedRPMTest = 1.0;
+	
 	
 	//private final CANTalon shooterMotor = RobotMap.shootershooterMotor;
     
@@ -40,22 +42,26 @@ public class shooter extends Subsystem {
         setDefaultCommand(new shooterMotorOff());
     }
     public void shootByDistance() {
-    	double speed = getRange();
-    	double minRPMs= 500;
+    	double speed = getCalculatedRPM();
+    	double minRPMs= 2500;
+    	double maxRPMs = 5000;
     	if(speed<minRPMs){
     		speed = minRPMs;
     	}
+    	if(speed>maxRPMs){
+    		speed = maxRPMs;
+    	}
     	RobotMap.shootershooterMotor.changeControlMode(TalonControlMode.Speed);
     	RobotMap.shootershooterMotor.set(speed);
-    	RobotMap.shooterGate.set(isShooting);
-    	if(isShooting){
-    		RobotMap.shooterGate2.set(false);
-    		RobotMap.shooterGate.set(true);
-    	}else{
-    		
-    		RobotMap.shooterGate2.set(true);
-    		RobotMap.shooterGate.set(false);
-    	}
+//    	RobotMap.shooterGate.set(isShooting);
+//    	if(isShooting){
+//    		RobotMap.shooterGate2.set(false);
+//    		RobotMap.shooterGate.set(true);
+//    	}else{
+//    		
+//    		RobotMap.shooterGate2.set(true);
+//    		RobotMap.shooterGate.set(false);
+//    	}
     	 SmartDashboard.putNumber("shooterSpeed",RobotMap.shootershooterMotor.getSpeed());
     	 SmartDashboard.putNumber("shooterEncPosition",RobotMap.shootershooterMotor.getEncPosition());
     	 SmartDashboard.putNumber("shooterEncVelocity",RobotMap.shootershooterMotor.getEncVelocity());
@@ -64,19 +70,33 @@ public class shooter extends Subsystem {
     public double getRange(){
     	double range;
     	double scaledVoltage;
-    	double average = RobotMap.rangeFinder.getAverageValue();
-   	 	SmartDashboard.putNumber("Range Finder Average",average);
-   	 	scaledVoltage = 5.0/1024;
+    	double average = RobotMap.rangeFinder.getAverageVoltage();
+   	 	scaledVoltage = 5.0/1024.0;
    	 	range = 5*(average/scaledVoltage); //Range in mm
    	 	
    	 	return range;
 
+    }  public double getRangeInches(){
+    	double range;
+    	double scaledVoltage;
+    	double average = RobotMap.rangeFinder.getAverageVoltage();
+   	 	scaledVoltage = 5.0/1024.0;
+   	 	range = 5*(average/scaledVoltage); //Range in mm
+   	 	range/=25.4;
+   	 	return range;
+
+    }
+    public double getCalculatedRPM(){
+    	double x = getRangeInches();
+    	double RPM = 0.170455*Math.pow(x,4)-1.90657*Math.pow(x, 3)+2.25379*Math.pow(x, 2)+108.14*x+2770.36;
+    	SmartDashboard.putNumber("Calculated RPMs",RPM);
+    	return RPM;
     }
     public void shootByTest(){
     	RobotMap.shootershooterMotor.changeControlMode(TalonControlMode.Speed);
-    	RobotMap.shootershooterMotor.set(speedRPM);
+    	RobotMap.shootershooterMotor.set(speedRPMTest);
     	SmartDashboard.putNumber("shooterSpeed",RobotMap.shootershooterMotor.getSpeed());
-    	SmartDashboard.putNumber("shooterRPM",speedRPM);
+    	SmartDashboard.putNumber("shooterRPM Test",speedRPMTest);
     	   
     }
     public void shooterStop(){
@@ -89,10 +109,10 @@ public class shooter extends Subsystem {
     	
     }
     public void shooterTestUp(){
-    	speedRPM += speedStep;
+    	speedRPMTest += speedStep;
     }
     public void shooterTestDown(){
-    	speedRPM -= speedStep;
+    	speedRPMTest -= speedStep;
     }
     
     

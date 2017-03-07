@@ -25,7 +25,7 @@ public class AutoGearRight extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new AutoDriveForward(2450, 0.5));
-    	addSequential(new TurnCounterClockwise(500, 0.5)); //turn clockwise
+    	addSequential(new TurnCounterClockwise(400, 0.5)); //turn clockwise
     	addSequential(new AutoDriveForward(1000, 0.5));
     	addParallel(new GearLeanOut());
     }

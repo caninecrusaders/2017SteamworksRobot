@@ -51,7 +51,7 @@ public class shooterMotorOn extends Command {
     protected void execute() {
     	//RobotMap.shootershooterMotor.setSetpoint(200);
     	double speed = 500; //RPM?
-    	Joystick j = Robot.oi.joystick1;
+    	Joystick j = Robot.oi.joystick;
     	isShooting = false;
     	 
     	if(!j.getIsXbox()){

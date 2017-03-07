@@ -7,36 +7,34 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class shooterMotorOnTesting extends Command {
+public class toggleInvert extends Command {
 
-    public shooterMotorOnTesting() {
+    public toggleInvert() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.shooter);
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.speedRPMTest = 180;
+    	Robot.drivebase.invert= !Robot.drivebase.invert;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.shootByTest();
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shooter.shooterStop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

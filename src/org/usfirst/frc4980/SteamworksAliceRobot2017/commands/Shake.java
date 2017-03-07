@@ -26,7 +26,7 @@ public class Shake extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Joystick j = Robot.oi.getJoystick1();
+    	Joystick j = Robot.oi.joystick;
     	boolean bake = false;
     	if(j.getIsXbox()){
     	bake = j.getRawAxis(3)>0.25;
